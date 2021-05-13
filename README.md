@@ -1,6 +1,6 @@
 # Orbit API Create Custom Activities Helper
 
-![Build Status](https://github.com/orbit-love/ruby-create-activities/workflows/CI/badge.svg)
+![Build Status](https://github.com/orbit-love/ruby-orbit-activities/workflows/CI/badge.svg)
 [![Gem Version](https://badge.fury.io/rb/orbit_activities.svg)](https://badge.fury.io/rb/orbit_activities)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md)
 
