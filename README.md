@@ -28,7 +28,7 @@ To send a custom activity to Orbit using the gem, instantiate a new instance of 
 OrbitActivities::Request.new(
     api_key: # Your Orbit API key,
     workspace_id: # Your Orbit workspace ID,
-    body: # The custom activity object
+    body: # The custom activity object in JSON format
 )
 ```
 

@@ -39,8 +39,6 @@ module OrbitActivities
 
             req.body = @body
 
-            req.body = @body.to_json
-
             response = http.request(req)
 
             response.body
