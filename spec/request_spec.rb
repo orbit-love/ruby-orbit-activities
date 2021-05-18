@@ -21,7 +21,7 @@ RSpec.describe OrbitActivities::Request do
                     source: "klingon_registry",
                     username: "worf"
                 }
-            }
+            }.to_json
         )
     end
 
