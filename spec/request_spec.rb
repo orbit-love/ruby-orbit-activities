@@ -6,6 +6,7 @@ RSpec.describe OrbitActivities::Request do
             api_key: "12345",
             workspace_id: "1234",
             user_agent: "community-ruby-starfleet-orbit/1.0",
+            action: "new_activity",
             body: {
                 activity: {
                     activity_type: "starfleet:signup",
@@ -48,7 +49,7 @@ RSpec.describe OrbitActivities::Request do
         end
     end
     
-    describe "#call" do
+    describe "#new_activity" do
         it "returns a HTTP 200 status for a successful request" do
             stub_request(:post, "https://app.orbit.love/api/v1/1234/activities")
             .with(
@@ -65,7 +66,7 @@ RSpec.describe OrbitActivities::Request do
                 headers: {}
             )
 
-            response = subject.call
+            response = subject.new_activity
 
             expect(response["response"]["code"]).to eq("SUCCESS")
         end
@@ -81,7 +82,7 @@ RSpec.describe OrbitActivities::Request do
                 headers: {}
             )
 
-            expect { subject.call }.to raise_error(ArgumentError, "Expected confirmation from the Orbit API, but received nothing. Please check your logs and try again.")
+            expect { subject.new_activity }.to raise_error(ArgumentError, "Expected confirmation from the Orbit API, but received nothing. Please check your logs and try again.")
         end
     end
 end
