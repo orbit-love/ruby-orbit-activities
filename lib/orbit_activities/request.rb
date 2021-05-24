@@ -51,7 +51,7 @@ module OrbitActivities
 
         def list_activities
             OrbitActivities::HTTP.get(
-                url: "https://app.orbit.love/api/v1/#{@workspace_id}/activities/",
+                url: "https://app.orbit.love/api/v1/#{@workspace_id}/activities",
                 user_agent: @user_agent,
                 api_key: @api_key,
                 filters: @filters

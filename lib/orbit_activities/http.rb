@@ -24,7 +24,7 @@ module OrbitActivities
             validate_payload(response.body)
         end
 
-        def self.get(url:, user_agent:, api_key:, filters:)
+        def self.get(url:, user_agent:, api_key:, filters: nil)
             url = URI(url)
             url.query = URI.encode_www_form(filters) if filters
 
@@ -33,6 +33,7 @@ module OrbitActivities
             req = Net::HTTP::Get.new(url)
             req["Accept"] = "application/json"
             req["Authorization"] = "Bearer #{api_key}"
+            req["User-Agent"] = user_agent
 
             response = http.request(req)
 
@@ -47,12 +48,13 @@ module OrbitActivities
             
             req = Net::HTTP::Delete.new(url)
             req["Authorization"] = "Bearer #{api_key}"
+            req["User-Agent"] = user_agent
 
             response = http.request(req)
 
-            "Deletion successful" if response.code = 204
+            return "Deletion successful" if response.code == "204" || response.code == "200"
 
-            raise ArgumentError, response.message if response.code != 204 
+            raise ArgumentError, response.message if response.code != "204" || response.code != "200"
         end
 
         def self.put(url:, user_agent:, api_key:, body:)
@@ -70,9 +72,9 @@ module OrbitActivities
 
             response = http.request(req)
 
-            "Update successful" if response.code = 204
+            return "Update successful" if response.code == "204" || response.code == "200"
 
-            raise ArgumentError, response.message if response.code != 204 
+            raise ArgumentError, response.message if response.code != "204" || response.code != "200"
         end
 
         def self.validate_payload(payload)
