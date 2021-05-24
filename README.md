@@ -1,12 +1,12 @@
-# Orbit API Create Custom Activities Helper
+# Orbit Activities Helper Library for Ruby
 
 ![Build Status](https://github.com/orbit-love/ruby-orbit-activities/workflows/CI/badge.svg)
 [![Gem Version](https://badge.fury.io/rb/orbit_activities.svg)](https://badge.fury.io/rb/orbit_activities)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md)
 
-> This is a Ruby gem that can be included in any Ruby application to take care of the logic of interacting with the Orbit API activities endpoint.
+> Orbit API helper library for Ruby. <br>This client can create, read, update and delete activities in your Orbit workspace.
 
-<hr />
+<img src="https://github.com/orbit-love/js-orbit-activities/blob/bc4ce38a34af95e40b2c3e54ba44d3df6b3d3aac/.github/logo.png" alt="Orbit" style="max-width: 300px; margin: 2em 0;">
 
 ## Package Usage
 
