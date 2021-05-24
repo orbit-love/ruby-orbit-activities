@@ -28,10 +28,10 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "http", "~> 4.4"
   spec.add_dependency "json", "~> 2.5"
-  spec.add_dependency "zeitwerk", "~> 2.4"
   spec.add_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rspec", "~> 3.4"
-  spec.add_development_dependency "webmock", "~> 3.12"
-  spec.add_development_dependency "rubocop", "~> 1.7"
+  spec.add_dependency "zeitwerk", "~> 2.4"
   spec.add_development_dependency "byebug"
+  spec.add_development_dependency "rspec", "~> 3.4"
+  spec.add_development_dependency "rubocop", "~> 1.7"
+  spec.add_development_dependency "webmock", "~> 3.12"
 end
