@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/orbit_activities.svg)](https://badge.fury.io/rb/orbit_activities)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md)
 
-> This is a Ruby gem that can be included in any Ruby application to take care of the logic of interacting with the Orbit API to create custom activities.
+> This is a Ruby gem that can be included in any Ruby application to take care of the logic of interacting with the Orbit API activities endpoint.
 
 <hr />
 
@@ -20,19 +20,87 @@ gem "orbit_activities"
 
 Then, run `bundle install` from your terminal.
 
-### Send Custom Activity
+### Usage
 
-To send a custom activity to Orbit using the gem, instantiate a new instance of the `Request` class:
+#### Create an Activity
+
+To create an activity:
 
 ```ruby
 OrbitActivities::Request.new(
     api_key: # Your Orbit API key,
     workspace_id: # Your Orbit workspace ID,
-    body: # The custom activity object in JSON format
+    action: "new_activity",
+    body: # The custom activity object in JSON format, see Orbit API docs for reference
+)
+```
+#### Update an Activity
+
+To update an activity:
+
+```ruby
+OrbitActivities::Request.new(
+    api_key: # Your Orbit API key,
+    workspace_id: # Your Orbit workspace ID,
+    action: "update_activity",
+    activity_id: # The ID of the activity to be updated,
+    member_id: # The ID of the member the activity is attached to,
+    body: # The custom activity object in JSON format, see Orbit API docs for reference
+)
+```
+#### Delete an Activity
+
+To delete an activity:
+
+```ruby
+OrbitActivities::Request.new(
+    api_key: # Your Orbit API key,
+    workspace_id: # Your Orbit workspace ID,
+    action: "delete_activity",
+    activity_id: # The ID of the activity to be updated,
+    member_id: # The ID of the member the activity is attached to
+)
+```
+#### List Activities
+
+To list activities:
+
+```ruby
+OrbitActivities::Request.new(
+    api_key: # Your Orbit API key,
+    workspace_id: # Your Orbit workspace ID,
+    action: "list_activities",
+    filters: # Any filters on the request in JSON format, see Orbit API docs for reference
+)
+```
+#### Get Specific Activity
+
+To get a specific activity:
+
+```ruby
+OrbitActivities::Request.new(
+    api_key: # Your Orbit API key,
+    workspace_id: # Your Orbit workspace ID,
+    action: "get_activity",
+    activity_id: # The ID of the actiivity
+)
+```
+#### Get Member Activities
+
+To get activities associated with a specific member:
+
+```ruby
+OrbitActivities::Request.new(
+    api_key: # Your Orbit API key,
+    workspace_id: # Your Orbit workspace ID,
+    action: "list_member_activities",
+    activity_id: # The ID of the actiivity,
+    member_id: # The ID of the member,
+    filters: # Any filters on the request in JSON format, see Orbit API docs for reference
 )
 ```
 
-For details on the data structure the Orbit API expects for a custom activity object, refer to the [Orbit API Documentation](https://docs.orbit.love/reference#post_-workspace-id-activities).
+For details on the data structures the Orbit API expects, refer to the [Orbit API Documentation](https://docs.orbit.love/reference).
 
 ## Contributing
 
