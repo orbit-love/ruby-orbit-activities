@@ -34,6 +34,8 @@ OrbitActivities::Request.new(
     body: # The custom activity object in JSON format, see Orbit API docs for reference
 )
 ```
+
+You can inspect the Orbit API response by appending `.response` to the end of the initialization method.
 #### Update an Activity
 
 To update an activity:
@@ -48,6 +50,8 @@ OrbitActivities::Request.new(
     body: # The custom activity object in JSON format, see Orbit API docs for reference
 )
 ```
+
+You can inspect the Orbit API response by appending `.response` to the end of the initialization method.
 #### Delete an Activity
 
 To delete an activity:
@@ -61,6 +65,8 @@ OrbitActivities::Request.new(
     member_id: # The ID of the member the activity is attached to
 )
 ```
+
+You can inspect the Orbit API response by appending `.response` to the end of the initialization method.
 #### List Activities
 
 To list activities:
@@ -71,7 +77,7 @@ OrbitActivities::Request.new(
     workspace_id: # Your Orbit workspace ID,
     action: "list_activities",
     filters: # Any filters on the request in JSON format, see Orbit API docs for reference
-)
+).response
 ```
 #### Get Specific Activity
 
@@ -83,7 +89,7 @@ OrbitActivities::Request.new(
     workspace_id: # Your Orbit workspace ID,
     action: "get_activity",
     activity_id: # The ID of the actiivity
-)
+).response
 ```
 #### Get Member Activities
 
@@ -97,7 +103,19 @@ OrbitActivities::Request.new(
     activity_id: # The ID of the actiivity,
     member_id: # The ID of the member,
     filters: # Any filters on the request in JSON format, see Orbit API docs for reference
-)
+).response
+```
+#### Get Latest Activity Timestamp for Activity Type
+
+To get the latest activity timestamp for a specific activity type:
+
+```ruby
+OrbitActivities::Request.new(
+    api_key: # Your Orbit API key,
+    workspace_id: # Your Orbit workspace ID,
+    action: "latest_activity_timestamp",
+    filters: { activity_type: # Activity type to search for, e.g. "custom:linkedin:comment" }
+).response
 ```
 
 For details on the data structures the Orbit API expects, refer to the [Orbit API Documentation](https://docs.orbit.love/reference).
