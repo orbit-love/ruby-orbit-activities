@@ -77,7 +77,7 @@ module OrbitActivities
         filters: filters
       )
 
-      @response = response["data"][0]["attributes"]["created_at"]
+      @response = response["data"][0]["attributes"]["created_at"] || nil
     end
 
     def get_activity
