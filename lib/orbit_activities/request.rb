@@ -5,6 +5,7 @@ require_relative "http"
 module OrbitActivities
   class Request
     attr_reader :api_key, :workspace_id, :user_agent, :action, :body, :filters, :member_id, :activity_id
+    attr_accessor :response
 
     def initialize(params = {})
       @action = params.fetch(:action)
@@ -15,6 +16,7 @@ module OrbitActivities
       @filters = params.fetch(:filters, nil)
       @member_id = params.fetch(:member_id, nil)
       @activity_id = params.fetch(:activity_id, nil)
+      @response = nil
 
       after_initialize!
     end
@@ -35,6 +37,8 @@ module OrbitActivities
         delete_post
       when "update_activity"
         update_activity
+      when "latest_activity_timestamp"
+        latest_activity_timestamp
       else
         raise ArgumentError,
               "Activity type is unrecognized. Must be one of: new_activity, list_activities, get_activity, list_member_activities, create_post, delete_post, update_activity"
@@ -42,7 +46,7 @@ module OrbitActivities
     end
 
     def new_activity
-      OrbitActivities::HTTP.post(
+      @response = OrbitActivities::HTTP.post(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/activities",
         user_agent: @user_agent,
         api_key: @api_key,
@@ -51,7 +55,7 @@ module OrbitActivities
     end
 
     def list_activities
-      OrbitActivities::HTTP.get(
+      @response = OrbitActivities::HTTP.get(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/activities",
         user_agent: @user_agent,
         api_key: @api_key,
@@ -59,8 +63,25 @@ module OrbitActivities
       )
     end
 
+    def latest_activity_timestamp
+      filters = {
+        items: 10,
+        direction: "DESC"
+      }
+      filters.merge!(@filters)
+
+      response = OrbitActivities::HTTP.get(
+        url: "https://app.orbit.love/api/v1/#{@workspace_id}/activities",
+        user_agent: @user_agent,
+        api_key: @api_key,
+        filters: filters
+      )
+
+      @response = response["data"][0]["attributes"]["created_at"]
+    end
+
     def get_activity
-      OrbitActivities::HTTP.get(
+      @response = OrbitActivities::HTTP.get(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/activities/#{@activity_id}",
         user_agent: @user_agent,
         api_key: @api_key
@@ -68,7 +89,7 @@ module OrbitActivities
     end
 
     def list_member_activities
-      OrbitActivities::HTTP.get(
+      @response = OrbitActivities::HTTP.get(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/members/#{@member_id}/activities",
         user_agent: @user_agent,
         api_key: @api_key,
@@ -77,7 +98,7 @@ module OrbitActivities
     end
 
     def create_post
-      OrbitActivities::HTTP.post(
+      @response = OrbitActivities::HTTP.post(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/members/#{@member_id}/activities",
         user_agent: @user_agent,
         api_key: @api_key,
@@ -86,7 +107,7 @@ module OrbitActivities
     end
 
     def delete_post
-      OrbitActivities::HTTP.delete(
+      @response = OrbitActivities::HTTP.delete(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/members/#{@member_id}/activities/#{@activity_id}",
         user_agent: @user_agent,
         api_key: @api_key
@@ -94,7 +115,7 @@ module OrbitActivities
     end
 
     def update_activity
-      OrbitActivities::HTTP.put(
+      @response = OrbitActivities::HTTP.put(
         url: "https://app.orbit.love/api/v1/#{@workspace_id}/members/#{@member_id}/activities/#{@activity_id}",
         user_agent: @user_agent,
         api_key: @api_key,
