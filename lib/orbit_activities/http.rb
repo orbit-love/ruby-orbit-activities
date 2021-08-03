@@ -21,6 +21,12 @@ module OrbitActivities
 
       response = http.request(req)
 
+      if response.class == Net::HTTPTooManyRequests
+        puts "Reached rate limitation in API, retrying in 60 seconds..."
+        sleep(60)
+        response = http.request(req)
+      end
+
       validate_payload(response.body)
     end
 

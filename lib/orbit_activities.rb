@@ -6,6 +6,9 @@ require_relative "orbit_activities/version"
 module OrbitActivities
   loader = Zeitwerk::Loader.new
   loader.tag = File.basename(__FILE__, ".rb")
+  loader.inflector.inflect({
+    'Http' => 'HTTP'
+  })
   loader.push_dir(__dir__)
   loader.setup
 end
